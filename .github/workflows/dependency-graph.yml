@@ -23,7 +23,7 @@ jobs:
           const fs = require('fs')
           const path = require('path')
           
-          const jsonFile = path.resolve('gradle-project/build/reports/github-dependency-report/github-dependency-manifest.json')
+          const jsonFile = path.resolve('build/reports/github-dependency-report/github-dependency-manifest.json')
           core.warning(`READING JSON from file: ${jsonFile}`)
           
           const jsonContent = fs.readFileSync(jsonFile, 'utf8')
