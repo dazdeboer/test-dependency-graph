@@ -16,3 +16,12 @@ jobs:
       uses: gradle/gradle-build-action@dd/dependency-graph
       with:
          upload-dependency-graph: true
+    - name: Script upload
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const fs = require('fs')
+          const path = require('path')
+          
+          const jsonFile = path.resolve('build/reports/github-dependency-report/github-dependency-manifest.json')
+          core.warning(`READING JSON from file: ${jsonFile}`)
