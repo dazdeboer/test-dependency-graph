@@ -28,3 +28,6 @@ jobs:
           
           const jsonContent = fs.readFileSync(jsonFile, 'utf8')
           core.warning(`READ JSON CONTENT: ${jsonContent}`)
+          
+          const jsonObject = JSON.parse(jsonContent)
+          await github.request('POST /repos/bigdaz/test-dependency-graph/dependency-graph/snapshots', jsonObject)          
