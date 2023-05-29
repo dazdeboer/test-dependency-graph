@@ -48,6 +48,7 @@ jobs:
       uses: actions/download-artifact@v3
       with:
         name: dependency-graph
+        path: github-dependency-report
     - name: Report dependency graph
       run: |
         ls -la github-dependency-report
