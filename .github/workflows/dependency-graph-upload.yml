@@ -17,16 +17,16 @@ jobs:
       run: |
         echo "workflow run_id = ${{github.event.workflow_run.id }}"
         gh api /repos/bigdaz/test-dependency-graph/actions/runs/${{github.event.workflow_run.id }}/artifacts
-#     - run: ls -la
-#     - name: Retrieve dependency graph
-#       uses: actions/github-script@v6
-#       with:
-#         script: |
-#             var artifacts = await github.actions.listWorkflowRunArtifacts({
-#                owner: context.repo.owner,
-#                repo: context.repo.repo,
-#                run_id: ${{github.event.workflow_run.id }},
-#             });
+    - name: Use script
+      uses: actions/github-script@v6
+      with:
+        script: |
+            var artifacts = await github.actions.listWorkflowRunArtifacts({
+               owner: "bigdaz",
+               repo: "test-dependency-graph",
+               run_id: ${{github.event.workflow_run.id }},
+            });
+            console.log(artifacts);
 #             var matchArtifact = artifacts.data.artifacts.filter((artifact) => {
 #               return artifact.name == "dependency-graph"
 #             })[0];
