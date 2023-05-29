@@ -6,7 +6,7 @@ on:
 permissions:
   actions: none
   checks: none
-  contents: write
+  contents: none
   deployments: none
   id-token: none
   issues: none
@@ -43,6 +43,8 @@ jobs:
   upload-graph:
     runs-on: ubuntu-latest
     needs: generate-graph
+    permissions:
+      contents: write
     steps:
     - name: Retrieve dependency graph
       uses: actions/download-artifact@v3
