@@ -12,11 +12,30 @@ jobs:
   upload-graph:
     runs-on: ubuntu-latest
     steps:
-    - name: Retrieve dependency graph
-      uses: actions/download-artifact@v3
-      with:
-        name: dependency-graph
-        path: github-dependency-report
+      - name: Retrieve dependency graph
+        uses: actions/github-script@v6
+        with:
+          script: |
+            var artifacts = await github.actions.listWorkflowRunArtifacts({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               run_id: ${{github.event.workflow_run.id }},
+            });
+            var matchArtifact = artifacts.data.artifacts.filter((artifact) => {
+              return artifact.name == "dependency-graph"
+            })[0];
+            var download = await github.actions.downloadArtifact({
+               owner: context.repo.owner,
+               repo: context.repo.repo,
+               artifact_id: matchArtifact.id,
+               archive_format: 'zip',
+            });
+
+            var fs = require('fs');
+            fs.writeFileSync('${{github.workspace}}/dependency-graph.zip', Buffer.from(download.data));
+    - run: ls -la
+    - run: unzip dependency-graph.zip
+    - run: ls -la
     - name: Report dependency graph
       run: |
         ls -la github-dependency-report
@@ -24,6 +43,3 @@ jobs:
     - name: Upload dependency graph
       run: |
         curl -L -X POST -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ github.token }}" -H "X-GitHub-Api-Version: 2022-11-28" https://api.github.com/repos/bigdaz/test-dependency-graph/dependency-graph/snapshots -d @github-dependency-report/github-dependency-manifest.json
-        
-  
-
