@@ -4,8 +4,8 @@ on:
   push:
 
 permissions:
-  actions: write
-  checks: write
+  actions: none
+  checks: none
   contents: write
   deployments: none
   id-token: none
@@ -14,9 +14,9 @@ permissions:
   packages: none
   pages: none
   pull-requests: write
-  repository-projects: write
-  security-events: write
-  statuses: write
+  repository-projects: none
+  security-events: none
+  statuses: none
 
 jobs:
   generate-graph:
