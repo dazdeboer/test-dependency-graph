@@ -24,13 +24,13 @@ runs:
 
             var fs = require('fs');
             fs.writeFileSync('${{github.workspace}}/dependency-graph.zip', Buffer.from(download.data));
-    - run: ls -la
-      shell: bash
-    - run: unzip dependency-graph.zip
-      shell: bash
-    - name: Report dependency graph
+    - name: Unzip artifact with bash
       run: |
+        ls -la
+        unzip dependency-graph.zip
+        ls -la
         cat github-dependency-manifest.json 
+      shell: bash
     - name: Upload dependency graph via script
       uses: actions/github-script@v6
       with:
