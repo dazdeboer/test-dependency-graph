@@ -25,7 +25,9 @@ runs:
             var fs = require('fs');
             fs.writeFileSync('${{github.workspace}}/dependency-graph.zip', Buffer.from(download.data));
     - run: ls -la
+      shell: bash
     - run: unzip dependency-graph.zip
+      shell: bash
     - name: Report dependency graph
       run: |
         cat github-dependency-manifest.json 
