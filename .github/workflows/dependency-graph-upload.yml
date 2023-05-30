@@ -12,4 +12,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Submit dependency graph
-      uses: .github/actions/submit-dependency-graph
+      uses: ./.github/actions/submit-dependency-graph
