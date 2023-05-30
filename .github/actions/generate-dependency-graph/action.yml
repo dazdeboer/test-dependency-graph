@@ -1,0 +1,14 @@
+name: generate-dependency-graph
+runs:
+  using: "composite"
+  steps:
+    - name: Generate dependency graph
+      uses: gradle/gradle-build-action@dd/dependency-graph
+      with:
+         upload-dependency-graph: true
+    - name: Save dependency graph
+      uses: actions/upload-artifact@v3
+      with:
+        name: dependency-graph
+        path: build/reports/github-dependency-report/github-dependency-manifest.json
+        retention-days: 1
