@@ -11,53 +11,5 @@ jobs:
   upload:
     runs-on: ubuntu-latest
     steps:
-    - name: Download the artifact via script
-      uses: actions/github-script@v6
-      with:
-        script: |
-            var artifacts = await github.rest.actions.listWorkflowRunArtifacts({
-               owner: context.repo.owner,
-               repo: context.repo.repo,
-               run_id: ${{github.event.workflow_run.id }},
-            });
-            console.log(artifacts);
-            var matchArtifact = artifacts.data.artifacts.filter((artifact) => {
-              return artifact.name == "dependency-graph"
-            })[0];
-            var download = await github.rest.actions.downloadArtifact({
-               owner: context.repo.owner,
-               repo: context.repo.repo,
-               artifact_id: matchArtifact.id,
-               archive_format: 'zip',
-            });
-
-            var fs = require('fs');
-            fs.writeFileSync('${{github.workspace}}/dependency-graph.zip', Buffer.from(download.data));
-    - run: ls -la
-    - run: unzip dependency-graph.zip
-    - run: ls -la
-    - name: Report dependency graph
-      run: |
-        cat github-dependency-manifest.json 
-    - name: Upload dependency graph via script
-      uses: actions/github-script@v6
-      with:
-        script: |
-          const fs = require('fs')
-          const path = require('path')
-          
-          const jsonFile = path.resolve('github-dependency-manifest.json')
-          core.warning(`READING JSON from file: ${jsonFile}`)
-          
-          const jsonContent = fs.readFileSync(jsonFile, 'utf8')
-          core.warning(`READ JSON CONTENT: ${jsonContent}`)
-          
-          const jsonObject = JSON.parse(jsonContent)
-          jsonObject.owner = "bigdaz"
-          jsonObject.repo = "test-dependency-graph"
-          const response = await github.request('POST /repos/{owner}/{repo}/dependency-graph/snapshots', jsonObject)          
-          
-          core.warning(`SUBMITTED: ${JSON.stringify(response)}`)
-#     - name: Upload dependency graph
-#       run: |
-#         curl -L -X POST -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ github.token }}" -H "X-GitHub-Api-Version: 2022-11-28" https://api.github.com/repos/bigdaz/test-dependency-graph/dependency-graph/snapshots -d @github-dependency-manifest.json
+    - name: Submit dependency graph
+      uses: .github/actions/submit-dependency-graph
