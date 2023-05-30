@@ -11,4 +11,5 @@ jobs:
   upload:
     runs-on: ubuntu-latest
     steps:
-    - uses: gradle/gradle-build-action/actions/submit-dependency-graph@dd/dependency-graph
+    - name: Retrieve dependency graph artifact and submit
+      uses: gradle/gradle-build-action/actions/submit-dependency-graph@dd/dependency-graph
