@@ -53,7 +53,9 @@ jobs:
           core.warning(`READ JSON CONTENT: ${jsonContent}`)
           
           const jsonObject = JSON.parse(jsonContent)
-          const response = await github.request('POST /repos/bigdaz/test-dependency-graph/dependency-graph/snapshots', jsonObject)          
+          jsonObject.owner = "bigdaz"
+          jsonObject.repo = "test-dependency-graph"
+          const response = await github.request('POST /repos/{owner}/{repo}/dependency-graph/snapshots', jsonObject)          
           
           core.warning(`SUBMITTED: ${JSON.stringify(response)}`)
 #     - name: Upload dependency graph
