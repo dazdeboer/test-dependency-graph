@@ -16,4 +16,4 @@ jobs:
         distribution: temurin
         java-version: 11
     - name: Generate dependency graph and save artifact
-      uses: gradle/gradle-build-action/actions/generate-dependency-graph@dd/dependency-graph
+      uses: gradle/gradle-build-action/actions/dependency-graph-generate@dd/dependency-graph
