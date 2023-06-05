@@ -15,7 +15,11 @@ jobs:
         java-version: 11
     - name: Setup Gradle
       uses: gradle/gradle-build-action@dd/dependency-graph-actions    
-    - name: Generate dependency graph and save artifact
+    - name: Generate dependency graph for main build
       uses: gradle/gradle-build-action/actions/dependency-graph-generate@dd/dependency-graph-actions
+    - name: Generate dependency graph for extra-build-1
+      uses: gradle/gradle-build-action/actions/dependency-graph-generate@dd/dependency-graph-actions
+      with:
+        build-root-directory: extra-build-1
     - name: Retrieve dependency graph artifact and submit
       uses: gradle/gradle-build-action/actions/dependency-graph-submit@dd/dependency-graph-actions
