@@ -1,6 +1,8 @@
 name: generate-dependency-graph
 on:
   workflow_dispatch:
+  push:
+  pull-request:
 
 permissions: {}
 
