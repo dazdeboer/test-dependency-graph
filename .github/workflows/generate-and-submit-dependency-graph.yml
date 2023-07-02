@@ -15,8 +15,8 @@ jobs:
       with:
         distribution: temurin
         java-version: 11
-#     - name: Setup Gradle
-#       uses: gradle/gradle-build-action@dd/dependency-graph    
+    - name: Setup Gradle
+      uses: gradle/gradle-build-action@dd/dependency-graph    
     - name: Generate dependency graph for main build
       uses: gradle/gradle-build-action/actions/dependency-graph-generate@dd/dependency-graph
     - name: Generate dependency graph for extra-build-1
