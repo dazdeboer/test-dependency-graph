@@ -17,9 +17,10 @@ jobs:
         java-version: 11
     - name: Setup Gradle
       uses: gradle/gradle-build-action@dd/dependency-graph
-    - name: Generate dependency graph for dd/dependency-graph build
-      uses: gradle/gradle-build-action/actions/dependency-graph-generate@dd/dependency-graph
-    - name: Generate dependency graph for extra-build-1
-      uses: gradle/gradle-build-action/actions/dependency-graph-generate@dd/dependency-graph
       with:
-        build-root-directory: extra-build-1
+        cache-disabled: true
+    - name: Run main build
+      run: ./gradlew :GitHubDependencyGraphPlugin_generateDependencyGraph
+    - name: Generate dependency graph for extra-build-1
+      run: ./gradlew :GitHubDependencyGraphPlugin_generateDependencyGraph
+      working-directory: extra-build-1
