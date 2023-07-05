@@ -23,7 +23,7 @@ jobs:
       uses: gradle/gradle-build-action@dd/dependency-graph
       with:
         cache-disabled: true
-        generate-dependency-graph: true
+        dependency-graph: generate
     - name: Run ${{ matrix.task }} build ${{ matrix.version }}
       run: ./gradlew ${{ matrix.task }}
 
