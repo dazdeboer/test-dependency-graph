@@ -19,8 +19,9 @@ jobs:
       uses: gradle/gradle-build-action@dd/dependency-graph
       with:
         cache-disabled: true
+        generate-dependency-graph: true
     - name: Run main build
-      run: ./gradlew :GitHubDependencyGraphPlugin_generateDependencyGraph
+      run: ./gradlew build
     - name: Generate dependency graph for extra-build-1
-      run: ./gradlew :GitHubDependencyGraphPlugin_generateDependencyGraph
+      run: ./gradlew build
       working-directory: extra-build-1
