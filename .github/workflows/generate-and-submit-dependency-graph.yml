@@ -20,9 +20,9 @@ jobs:
       with:
         cache-disabled: true
     - name: Run main build
-      run: ./gradlew :GitHubDependencyGraphPlugin_generateDependencyGraph
+      run: ./gradle build
     - name: Generate dependency graph for extra-build-1
-      run: ./gradlew :GitHubDependencyGraphPlugin_generateDependencyGraph
+      run: ./gradlew build
       working-directory: extra-build-1
 #       env:
 #         GITHUB_DEPENDENCY_GRAPH_JOB_CORRELATOR: generate-and-submit-dependency-graph-generate-graph-EXTRA
