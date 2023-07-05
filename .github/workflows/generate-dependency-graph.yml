@@ -25,3 +25,6 @@ jobs:
     - name: Generate dependency graph for extra-build-1
       run: ./gradlew build
       working-directory: extra-build-1
+      env:
+        GITHUB_DEPENDENCY_GRAPH_JOB_CORRELATOR: generate-dependency-graph-generate-graph-EXTRA
+
