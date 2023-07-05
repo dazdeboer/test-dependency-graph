@@ -12,7 +12,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Retrieve dependency graph artifact and submit
-      uses: gradle/gradle-build-action/actions/dependency-graph-submit@dd/dependency-graph
+      uses: gradle/gradle-build-action@dd/dependency-graph
+      with:
+        dependency-graph: download-and-submit
   on-generation-failure:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'failure' }}
