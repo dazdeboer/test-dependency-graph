@@ -9,6 +9,10 @@ permissions: {}
 jobs:
   generate-graph:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        task: ["assemble", "test"]
+        version: [1, 2]
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-java@v3
@@ -20,11 +24,6 @@ jobs:
       with:
         cache-disabled: true
         generate-dependency-graph: true
-    - name: Run main build
-      run: ./gradlew build
-    - name: Generate dependency graph for extra-build-1
-      run: ./gradlew build
-      working-directory: extra-build-1
-      env:
-        GITHUB_DEPENDENCY_GRAPH_JOB_CORRELATOR: generate-dependency-graph-generate-graph-EXTRA
+    - name: Run ${{ matrix.task }} build ${{ matrix.version }}
+      run: ./gradlew ${{ matrix.task }}
 
