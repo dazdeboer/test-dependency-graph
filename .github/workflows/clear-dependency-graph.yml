@@ -12,13 +12,16 @@ jobs:
   submit-empty-graph:
     runs-on: ubuntu-latest
     steps:
+    - name: Print message
+      run: 
+        echo "::notice ::Clearing dependency graph for job correlator '${{ inputs.jobCorrelator }}'"
     - name: Submit empty dependency graph
       run: |
-        echo "Clearing dependency graph for job correlator: '${{ inputs.jobCorrelator }}'"
+        NOW=`date -Iseconds`
         curl -L \
         -X POST \
         -H "Accept: application/vnd.github+json" \
         -H "Authorization: Bearer ${{ github.token }}" \
         -H "X-GitHub-Api-Version: 2022-11-28" \
         https://api.github.com/repos/${{ github.repository }}/dependency-graph/snapshots \
-        -d '{ "version" : 0, "job" : { "id" : "${{ github.run_id }}", "correlator" : "${{ inputs.jobCorrelator }} " }, "sha" : "${{ github.sha }}", "ref" : "${{ github.ref }}",  "detector" : { "name" : "GitHub Dependency Graph Gradle Plugin", "version" : "0.0.3", "url" : "https://github.com/gradle/github-dependency-graph-gradle-plugin" }, "manifests" : {}, "scanned" : "${{ github.event.repository.updated_at }}" }'
+        -d '{ "version" : 0, "job" : { "id" : "${{ github.run_id }}", "correlator" : "${{ inputs.jobCorrelator }} " }, "sha" : "${{ github.sha }}", "ref" : "${{ github.ref }}",  "detector" : { "name" : "GitHub Dependency Graph Gradle Plugin", "version" : "0.0.3", "url" : "https://github.com/gradle/github-dependency-graph-gradle-plugin" }, "manifests" : {}, "scanned" : "$NOW" }'
