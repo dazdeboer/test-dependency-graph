@@ -2,7 +2,7 @@ name: generate-and-submit-in-one-job
 on:
   workflow_dispatch:
   
-permissions: write-all
+#permissions: write-all
 
 jobs:
   build:
