@@ -20,8 +20,8 @@ jobs:
         dependency-graph: generate-and-submit
     - name: Run main build
       run: ./gradlew build
-    - name: Generate dependency graph for extra-build-1
-      run: ./gradlew build
-      working-directory: extra-build-1
-      env:
-        GITHUB_DEPENDENCY_GRAPH_JOB_CORRELATOR: generate-and-submit-in-one-job-build-EXTRA
+    # - name: Generate dependency graph for extra-build-1
+    #   run: ./gradlew build
+    #   working-directory: extra-build-1
+    #   env:
+    #     GITHUB_DEPENDENCY_GRAPH_JOB_CORRELATOR: generate-and-submit-in-one-job-build-EXTRA
