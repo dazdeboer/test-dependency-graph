@@ -14,6 +14,7 @@ jobs:
     steps:
     - name: Submit empty dependency graph
       run: |
+        echo "Clearing dependency graph for job correlator: '${{ inputs.jobCorrelator }}'"
         curl -L \
         -X POST \
         -H "Accept: application/vnd.github+json" \
