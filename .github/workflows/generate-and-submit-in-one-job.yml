@@ -3,8 +3,8 @@ on:
   workflow_dispatch:
   
 permissions:
-  actions: write
-#   contents: write
+#   actions: write
+  contents: write
 
 jobs:
   build:
