@@ -4,10 +4,7 @@ on:
   
 permissions:
   actions: write
-  contents: write
-#   id-token: write
-#   security-events: write
-#   statuses: write
+#   contents: write
 
 jobs:
   build:
