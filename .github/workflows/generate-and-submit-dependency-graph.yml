@@ -14,7 +14,7 @@ jobs:
         distribution: temurin
         java-version: 11
     - name: Setup Gradle
-      uses: gradle/gradle-build-action@dependency-graph
+      uses: gradle/gradle-build-action@v2
       with:
         cache-disabled: true
         dependency-graph: generate
@@ -23,8 +23,7 @@ jobs:
     - name: Generate dependency graph for extra-build-1
       run: ./gradlew build
       working-directory: extra-build-1
-      env:
-        GITHUB_DEPENDENCY_GRAPH_JOB_CORRELATOR: generate-and-submit-dependency-graph-generate-graph-EXTRA
+
   generate-graph-help:
     runs-on: ubuntu-latest
     steps:
@@ -34,17 +33,18 @@ jobs:
         distribution: temurin
         java-version: 11
     - name: Setup Gradle
-      uses: gradle/gradle-build-action@dependency-graph
+      uses: gradle/gradle-build-action@v2
       with:
         cache-disabled: true
         dependency-graph: generate
         args: help
+
   submit-graph:
     runs-on: ubuntu-latest
     needs: [generate-graph, generate-graph-help]
     steps:
     - name: Retrieve dependency graph artifacts and submit
-      uses: gradle/gradle-build-action@dependency-graph
+      uses: gradle/gradle-build-action@v2
       with:
         cache-disabled: true
         dependency-graph: download-and-submit
