@@ -1,4 +1,4 @@
-name: generate-and-submit-dependency-graph
+name: Dependency review for PR
 on:
   pull_request:
   
@@ -26,4 +26,4 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     - name: Perform dependency review
-      uses: actions/dependency-review-action@v3on:
+      uses: actions/dependency-review-action@v3

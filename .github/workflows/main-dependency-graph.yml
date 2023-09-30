@@ -1,4 +1,4 @@
-name: generate-and-submit-dependency-graph
+name: Submit dependency graph for main
 on:
   push:
     branches:
