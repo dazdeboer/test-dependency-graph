@@ -25,6 +25,9 @@ jobs:
         dependency-graph: download-and-submit
     - name: Dependency review
       uses: actions/dependency-review-action@v3
+      with:
+        base-ref: main
+        head-ref: ${{ github.event.workflow_run.head_branch }}
   on-generation-failure:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'failure' }}
