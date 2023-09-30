@@ -14,4 +14,4 @@ jobs:
       uses: actions/dependency-review-action@v3
       with:
         base-ref: main
-        head-ref: refs/pulls/8
+        head-ref: refs/pull/8/head
