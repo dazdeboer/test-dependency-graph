@@ -1,0 +1,25 @@
+name: Dependency review for PR from fork
+on:
+  workflow_run:
+    workflows: ["PR check"]
+    types:
+      - completed
+  
+permissions:
+  contents: write
+  # Note that this permission will not be available if the PR is from a forked repository
+
+jobs:
+  dependency-review:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Retrieve dependency graph artifact and submit
+      uses: gradle/gradle-build-action@dd/dependency-review-support
+      with:
+        dependency-graph: download-and-submit
+        cache-disabled: true
+    - name: Perform dependency review
+      uses: actions/dependency-review-action@v3
+      with:
+        base-ref: main
+        head-ref: ${{ github.event.workflow_run.head_branch }}
