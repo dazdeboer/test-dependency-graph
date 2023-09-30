@@ -44,7 +44,9 @@ jobs:
     needs: [generate-graph, generate-graph-help]
     steps:
     - name: Retrieve dependency graph artifacts and submit
-      uses: gradle/gradle-build-action@v2
+      uses: gradle/gradle-build-action@dd/dependency-review-support
       with:
         cache-disabled: true
         dependency-graph: download-and-submit
+    - name: Dependency review
+      uses: actions/dependency-review-action@v3

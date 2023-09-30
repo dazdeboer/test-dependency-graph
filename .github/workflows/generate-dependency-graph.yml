@@ -18,7 +18,7 @@ jobs:
         distribution: temurin
         java-version: 11
     - name: Setup Gradle
-      uses: gradle/gradle-build-action@dependency-graph
+      uses: gradle/gradle-build-action@dd/dependency-review-support
       with:
         cache-disabled: true
         dependency-graph: generate
