@@ -1,7 +1,6 @@
 name: generate-and-submit-dependency-graph
 on:
   workflow_dispatch:
-  pull_request:
   
 permissions: write-all
 
