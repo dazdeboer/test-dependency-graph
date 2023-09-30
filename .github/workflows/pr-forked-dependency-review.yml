@@ -25,5 +25,9 @@ jobs:
     - name: Perform dependency review
       uses: actions/dependency-review-action@v3
       with:
-        base-ref: main
-        head-ref: ${{ github.event.workflow_run.head_branch }}
+        # The target ref to compare with (not easy to obtain in workflow_run)
+        # This value isn't quite right: it's the base ref of the workflow, not the base branch of the PR
+        base-ref: ${{ github.ref }}
+
+        # The head of the PR branch
+        head-ref: ${{ github.event.workflow_run.head_sha }}
