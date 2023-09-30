@@ -13,6 +13,10 @@ jobs:
   dependency-review:
     runs-on: ubuntu-latest
     steps:
+    - name: Dump GitHub context
+      env:
+        GITHUB_CONTEXT: ${{ toJSON(github) }}
+      run: echo "$GITHUB_CONTEXT"
     - name: Retrieve dependency graph artifact and submit
       uses: gradle/gradle-build-action@dd/dependency-review-support
       with:
