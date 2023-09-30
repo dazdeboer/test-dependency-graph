@@ -1,4 +1,4 @@
-name: Dependency review for PR triggered manually
+name: Direct review
 on:
   workflow_dispatch:
   
