@@ -6,16 +6,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Dump GitHub context
-      env:
-        GITHUB_CONTEXT: ${{ toJSON(github) }}
-      run: echo "$GITHUB_CONTEXT"
     - uses: actions/checkout@v3
     - uses: actions/setup-java@v3
       with:
         distribution: temurin
         java-version: 11
-    - name: Setup Gradle to generate and submit dependency graphs
+    - name: Setup Gradle to generate dependency graphs
       uses: gradle/gradle-build-action@dd/dependency-review-support
       with:
         dependency-graph: generate
