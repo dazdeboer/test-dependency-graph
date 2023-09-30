@@ -38,7 +38,7 @@ jobs:
       with:
         cache-disabled: true
         dependency-graph: generate
-        args: help
+        arguments: help
 
   submit-graph:
     runs-on: ubuntu-latest

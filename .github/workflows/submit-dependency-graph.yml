@@ -11,6 +11,14 @@ jobs:
   submit-dependency-graph:
     runs-on: ubuntu-latest
     steps:
+    - name: Dump GitHub context
+      env:
+        GITHUB_CONTEXT: ${{ toJSON(github) }}
+      run: echo "$GITHUB_CONTEXT"
+    - name: Dump workflow_run context
+        env:
+          WORKFLOW_RUN_CONTEXT: ${{ toJSON(github.event.workflow_run) }}
+        run: echo "$WORKFLOW_RUN_CONTEXT"
     - name: Retrieve dependency graph artifact and submit
       uses: gradle/gradle-build-action@dd/dependency-review-support
       with:
