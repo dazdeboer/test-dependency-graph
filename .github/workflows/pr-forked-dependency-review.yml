@@ -1,35 +1,19 @@
 name: Dependency review for PR from fork
 on:
-  workflow_run:
-    workflows: ["PR check"]
-    types:
-      - completed
-  
+  pull_request:
+
 permissions:
-  contents: write
-  # Note that this permission will not be available if the PR is from a forked repository
+  contents: read
+  pull-requests: write
 
 jobs:
   dependency-review:
     runs-on: ubuntu-latest
     steps:
-    - name: Dump GitHub context
-      env:
-        GITHUB_CONTEXT: ${{ toJSON(github) }}
-      run: echo "$GITHUB_CONTEXT"
-    - name: Retrieve dependency graph artifact and submit
-      uses: gradle/gradle-build-action@dd/dependency-review-support
-      with:
-        dependency-graph: download-and-submit
-        cache-disabled: true
-    - name: Perform dependency review
-      uses: actions/dependency-review-action@v3
-      with:
-        # The target ref to compare with (not easy to obtain in workflow_run)
-        # This value isn't quite right: it's the base ref of the workflow, not the base branch of the PR
-        base-ref: ${{ github.ref }}
-
-        # The head of the PR branch
-        head-ref: ${{ github.event.workflow_run.head_sha }}
-
-        comment-summary-in-pr: always
+      - name: 'Checkout Repository'
+        uses: actions/checkout@v4
+      - name: 'Dependency Review'
+        uses: actions/dependency-review-action@v3
+        with:
+          retry-on-snapshot-warnings: true
+          retry-on-snapshot-warnings-timeout: 600

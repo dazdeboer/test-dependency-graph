@@ -1,0 +1,24 @@
+name: Submit dependency graph for PR from fork
+on:
+  workflow_run:
+    workflows: ["PR check"]
+    types:
+      - completed
+  
+permissions:
+  contents: write
+  # Note that this permission will not be available if the PR is from a forked repository
+
+jobs:
+  submit-dependency-graph:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Dump GitHub context
+      env:
+        GITHUB_CONTEXT: ${{ toJSON(github) }}
+      run: echo "$GITHUB_CONTEXT"
+    - name: Submit dependency graph
+      uses: gradle/gradle-build-action@dd/dependency-review-support
+      with:
+        dependency-graph: download-and-submit
+        cache-disabled: true
